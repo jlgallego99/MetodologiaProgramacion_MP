@@ -49,7 +49,7 @@ int main(){
 }
 
 int encuentra_palabras(info_palabra * palabras, char * cadena){
-   const char ESPACIO = ' ', FIN_CADENA = '\0';
+   const char FIN_CADENA = '\0';
    int primera_letra = 0, num_palabras = 0;
    // Se inicializa la capacidad dinámica del vector al tamaño inicial de este
    int cap = TAM_PALABRAS;
@@ -61,12 +61,12 @@ int encuentra_palabras(info_palabra * palabras, char * cadena){
    for (int i = 0 ; i < strlen(cadena) ; i++){
       /* Controla a cada vuelta la ocupación del array de punteros, si está 
       lleno, se redimensionará por bloque para que quepan más */
-      if (i + 1 == cap){
+      if (num_palabras == cap){
          palabras = Redimensiona(palabras, cap);
       }
       /* Cada vez que encuentre un espacio, se guarda la posición siguiente 
       esperando que no sea un espacio */
-      if (cadena[i] == ESPACIO){
+      if (isspace(cadena[i])){
          primera_letra = i + 1;
       }
       // Se controla que sólo se guarde la primera letra de cada palabra
@@ -75,7 +75,7 @@ int encuentra_palabras(info_palabra * palabras, char * cadena){
       }
       /* Si, estando en la palabra, el siguiente caracter es un espacio, es que 
       estamos en el fin de ella */
-      else if (cadena[i + 1] == ESPACIO || cadena[i + 1] == FIN_CADENA){
+      else if (isspace(cadena[i + 1]) || cadena[i + 1] == FIN_CADENA){
          (palabras + num_palabras)->fin = &cadena[i];
 
          // Ya tenemos el inicio y el fin, avanzamos el array de palabras
@@ -98,13 +98,12 @@ void muestra_palabras(info_palabra * las_palabras, int num_palabras){
 
 // Redimensiona un vector de struct info_palabra
 info_palabra * Redimensiona(info_palabra * p, int & cap){
-	const int TAM_BLOQUE = 20;
+	const int TAM_BLOQUE = 10;
 
 	cap += TAM_BLOQUE;
 	
-   info_palabra * q = new info_palabra [cap];
+	info_palabra * q = new info_palabra [cap];
 	memcpy(q, p, cap*sizeof(info_palabra));
-	delete [] p;
-
+	
 	return q;
 }

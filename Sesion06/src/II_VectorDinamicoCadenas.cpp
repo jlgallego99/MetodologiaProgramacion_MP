@@ -84,9 +84,6 @@ char ** Redimensiona(char ** p, int & cap){
 
 	char ** q = new char * [cap];
 	memcpy(q, p, cap*sizeof(char));
-	delete [] p;
-	memcpy(p, q, cap*sizeof(char));
-	delete [] q;
 
-	return p;
+	return q;
 }

@@ -44,7 +44,7 @@ int main(){
 }
 
 int encuentra_palabras(info_palabra * palabras, char * cadena){
-   const char ESPACIO = ' ', FIN_CADENA = '\0';
+   const char FIN_CADENA = '\0';
    int primera_letra = 0, num_palabras = 0;
    bool lleno = false;
 
@@ -60,7 +60,7 @@ int encuentra_palabras(info_palabra * palabras, char * cadena){
       }
       /* Cada vez que encuentre un espacio, se guarda la posición siguiente 
       esperando que no sea un espacio */
-      else if (cadena[i] == ESPACIO){
+      else if (isspace(cadena[i])){
          primera_letra = i + 1;
       }
       // Se controla que sólo se guarde la primera letra de cada palabra
@@ -69,7 +69,7 @@ int encuentra_palabras(info_palabra * palabras, char * cadena){
       }
       /* Si, estando en la palabra, el siguiente caracter es un espacio, es que 
       estamos en el fin de ella */
-      else if (cadena[i + 1] == ESPACIO || cadena[i + 1] == FIN_CADENA){
+      else if (isspace(cadena[i + 1]) || cadena[i + 1] == FIN_CADENA){
          (palabras + num_palabras)->fin = &cadena[i];
 
          // Ya tenemos el inicio y el fin, avanzamos el array de palabras

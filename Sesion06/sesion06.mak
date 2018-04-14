@@ -18,9 +18,9 @@ LIB = $(HOME)/lib
 
 all: mrproper $(BIN)/I_EncuentraInicioPalabras \
 				  $(BIN)/I_EncuentraPalabras \
-				  $(BIN)/II-RedimensionaVectorDinamico \
-				  $(BIN)/II-EncuentraPalabras_MemDin \
-				  $(BIN)/II-VectorDinamicoCadenas
+				  $(BIN)/II_RedimensionaVectorDinamico \
+				  $(BIN)/II_EncuentraPalabras_MemDin \
+				  $(BIN)/II_VectorDinamicoCadenas
 
 # Relación de problemas I, Ejercicio 17
 
@@ -41,43 +41,31 @@ $(OBJ)/I_EncuentraPalabras.o : $(SRC)/I_EncuentraPalabras.cpp
 
 # Relación de problemas II, Ejercicio 1
 
-$(BIN)/II-RedimensionaVectorDinamico : $(OBJ)/II-RedimensionaVectorDinamico.o \
-                                       $(OBJ)/Redimensiona.o \
-													$(OBJ)/MuestraVector.o
-	g++ -o $(BIN)/II-RedimensionaVectorDinamico \
-	          $(OBJ)/II-RedimensionaVectorDinamico.o \
-				 $(OBJ)/Redimensiona.o \
-				 $(OBJ)/MuestraVector.o
+$(BIN)/II_RedimensionaVectorDinamico : $(OBJ)/II_RedimensionaVectorDinamico.o
+	g++ -o $(BIN)/II_RedimensionaVectorDinamico \
+	       $(OBJ)/II_RedimensionaVectorDinamico.o \
 
-$(OBJ)/II-RedimensionaVectorDinamico.o : $(SRC)/II-RedimensionaVectorDinamico.cpp \
-                                         $(INCLUDE)/Redimensiona.h \
-													  $(INCLUDE)/MuestraVector.h
-	g++ -c -o $(OBJ)/II-RedimensionaVectorDinamico.o \
-	          $(SRC)/II-RedimensionaVectorDinamico.cpp -I$(INCLUDE)
-
-$(OBJ)/Redimensiona.o : $(SRC)/Redimensiona.cpp
-	g++ -c -o $(OBJ)/Redimensiona.o $(SRC)/Redimensiona.cpp -I$(INCLUDE)
-
-$(OBJ)/MuestraVector.o : $(SRC)/MuestraVector.cpp
-	g++ -c -o $(OBJ)/MuestraVector.o $(SRC)/MuestraVector.cpp -I$(INCLUDE)
+$(OBJ)/II_RedimensionaVectorDinamico.o : $(SRC)/II_RedimensionaVectorDinamico.cpp 	
+	g++ -c -o $(OBJ)/II_RedimensionaVectorDinamico.o \
+	          $(SRC)/II_RedimensionaVectorDinamico.cpp
 
 # Relación de problemas II, Ejercicio 2
 
-$(BIN)/II-EncuentraPalabras_MemDin : $(OBJ)/II-EncuentraPalabras_MemDin.o 
-	g++ -o $(BIN)/II-EncuentraPalabras_MemDin $(OBJ)/II-EncuentraPalabras_MemDin.o
+$(BIN)/II_EncuentraPalabras_MemDin : $(OBJ)/II_EncuentraPalabras_MemDin.o 
+	g++ -o $(BIN)/II_EncuentraPalabras_MemDin $(OBJ)/II_EncuentraPalabras_MemDin.o
 
-$(OBJ)/II-EncuentraPalabras_MemDin.o : $(SRC)/II-EncuentraPalabras_MemDin.cpp 
-	g++ -c -o $(OBJ)/II-EncuentraPalabras_MemDin.o \
-	          $(SRC)/II-EncuentraPalabras_MemDin.cpp 
+$(OBJ)/II_EncuentraPalabras_MemDin.o : $(SRC)/II_EncuentraPalabras_MemDin.cpp 
+	g++ -c -o $(OBJ)/II_EncuentraPalabras_MemDin.o \
+	          $(SRC)/II_EncuentraPalabras_MemDin.cpp 
 
 # Relación de problemas II, Ejercicio 2
 
-$(BIN)/II-VectorDinamicoCadenas : $(OBJ)/II-VectorDinamicoCadenas.o 
-	g++ -o $(BIN)/II-VectorDinamicoCadenas $(OBJ)/II-VectorDinamicoCadenas.o
+$(BIN)/II_VectorDinamicoCadenas : $(OBJ)/II_VectorDinamicoCadenas.o 
+	g++ -o $(BIN)/II_VectorDinamicoCadenas $(OBJ)/II_VectorDinamicoCadenas.o
 
-$(OBJ)/II-VectorDinamicoCadenas.o : $(SRC)/II-VectorDinamicoCadenas.cpp 
-	g++ -c -o $(OBJ)/II-VectorDinamicoCadenas.o \
-	          $(SRC)/II-VectorDinamicoCadenas.cpp 
+$(OBJ)/II_VectorDinamicoCadenas.o : $(SRC)/II_VectorDinamicoCadenas.cpp 
+	g++ -c -o $(OBJ)/II_VectorDinamicoCadenas.o \
+	          $(SRC)/II_VectorDinamicoCadenas.cpp 
 
 # LIMPIEZA 
 clean : 
