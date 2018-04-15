@@ -80,7 +80,7 @@ $(LIB)/libLista.a : $(OBJ)/Lista.o $(OBJ)/GeneradorAleatorios.o
 # LIMPIEZA 
 
 clean : 
-	-rm $(OBJ)/*
+	-rm $(OBJ)/* -rm$(LIB)/*
 
 mrproper : clean
-	-rm $(BIN)/*
+	-rm $(BIN)/* 
