@@ -1,0 +1,9 @@
+{
+   "C_Cpp.intelliSenseEngineFallback": "Disabled",
+   "files.associations": {
+      "ostream": "cpp",
+      "iostream": "cpp",
+      "cctype": "cpp",
+      "chrono": "cpp"
+   }
+}
