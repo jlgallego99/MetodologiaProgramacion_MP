@@ -5,7 +5,7 @@
 // Universidad de Granada
 // Autor: Jose Luis Gallego Peña
 //
-// Relación de problemas I, Ejercicio 18
+// Relación de problemas I, Ejercicio 21
 // Definición de la función "PosMayor"
 //
 // Recibe un vector de números enteros y dos valores enteros que indican

@@ -5,7 +5,7 @@
 // Universidad de Granada
 // Autor: Jose Luis Gallego Peña
 //
-// Relación de problemas I, Ejercicio 20
+// Relación de problemas I, Ejercicio 23
 // Programa principal
 //
 //////////////////////////////////////////////////////////////////////////

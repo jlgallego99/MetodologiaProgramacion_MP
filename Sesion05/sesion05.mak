@@ -19,10 +19,11 @@ LIB = $(HOME)/lib
 all: mrproper $(BIN)/I_MaxMin_Array \
 			     $(BIN)/I_LeeEntero \
 				  $(BIN)/I_PosMayor \
+				  $(BIN)/I_OrdenConPunteros \
               $(BIN)/I_MezclaArrays \
 				  $(BIN)/I_Sucursales_Matriz_Clasica
 
-# Ejercicio 16
+# Ejercicio 19
 
 $(BIN)/I_LeeEntero : $(OBJ)/I_LeeEntero.o $(OBJ)/LeeEntero.o 
 	g++ -g -o $(BIN)/I_LeeEntero $(OBJ)/I_LeeEntero.o $(OBJ)/LeeEntero.o 
@@ -34,7 +35,7 @@ $(OBJ)/LeeEntero.o : $(SRC)/LeeEntero.cpp $(INCLUDE)/LeeEntero.h
 	g++ -g -c -o $(OBJ)/LeeEntero.o $(SRC)/LeeEntero.cpp -I$(INCLUDE)
 
 
-# Ejercicio 17
+# Ejercicio 20
 
 $(BIN)/I_MaxMin_Array : $(OBJ)/I_MaxMin_Array.o $(OBJ)/MaximoMinimo.o \
                         $(OBJ)/VectorAleatorio.o
@@ -51,7 +52,7 @@ $(OBJ)/MaximoMinimo.o : $(SRC)/MaximoMinimo.cpp $(INCLUDE)/MaximoMinimo.h
 $(OBJ)/VectorAleatorio.o : $(SRC)/VectorAleatorio.cpp $(INCLUDE)/VectorAleatorio.h
 	g++ -c -o $(OBJ)/VectorAleatorio.o $(SRC)/VectorAleatorio.cpp -I$(INCLUDE)
 
-# Ejercicio 18
+# Ejercicio 21
 
 $(BIN)/I_PosMayor : $(OBJ)/I_PosMayor.o $(OBJ)/PosMayor.o \
                     $(OBJ)/VectorAleatorio.o 
@@ -65,7 +66,15 @@ $(OBJ)/I_PosMayor.o : $(SRC)/I_PosMayor.cpp $(INCLUDE)/PosMayor.h \
 $(OBJ)/PosMayor.o : $(SRC)/PosMayor.cpp $(INCLUDE)/PosMayor.h
 	g++ -c -o $(OBJ)/PosMayor.o $(SRC)/PosMayor.cpp -I$(INCLUDE)
 
-# Ejercicio 20
+# Ejercicio 22
+
+$(BIN)/I_OrdenConPunteros : $(OBJ)/I_OrdenConPunteros.o 
+	g++ -o $(BIN)/I_OrdenConPunteros $(OBJ)/I_OrdenConPunteros.o 
+
+$(OBJ)/I_OrdenConPunteros.o : $(SRC)/I_OrdenConPunteros.cpp
+	g++ -c -o $(OBJ)/I_OrdenConPunteros.o $(SRC)/I_OrdenConPunteros.cpp
+
+# Ejercicio 23
 
 $(BIN)/I_MezclaArrays : $(OBJ)/I_MezclaArrays.o $(OBJ)/RellenaVector.o \
                         $(OBJ)/MuestraVector.o $(OBJ)/MezclaVectores.o \
@@ -87,12 +96,12 @@ $(OBJ)/MuestraVector.o : $(SRC)/MuestraVector.cpp $(INCLUDE)/MuestraVector.h
 
 $(OBJ)/MezclaVectores.o : $(SRC)/MezclaVectores.cpp $(INCLUDE)/MezclaVectores.h \
                           $(INCLUDE)/OrdenaVector.h
-	g++ -c -o $(OBJ)/MezclaVectores.o $(SRC)/MezclaVe/ctores.cpp -I$(INCLUDE)
+	g++ -c -o $(OBJ)/MezclaVectores.o $(SRC)/MezclaVectores.cpp -I$(INCLUDE)
 
 $(OBJ)/OrdenaVector.o : $(SRC)/OrdenaVector.cpp $(INCLUDE)/OrdenaVector.h
 	g++ -c -o $(OBJ)/OrdenaVector.o $(SRC)/OrdenaVector.cpp -I$(INCLUDE)
 
-# Ejercicio 21
+# Ejercicio 24
 
 $(BIN)/I_Sucursales_Matriz_Clasica : $(OBJ)/I_Sucursales_Matriz_Clasica.o 
 	g++ -o $(BIN)/I_Sucursales_Matriz_Clasica $(OBJ)/I_Sucursales_Matriz_Clasica.o 

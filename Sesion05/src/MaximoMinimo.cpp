@@ -5,7 +5,7 @@
 // Universidad de Granada
 // Autor: Jose Luis Gallego Peña
 //
-// Relación de problemas I, Ejercicio 17
+// Relación de problemas I, Ejercicio 20
 // Definición de la función "MaximoMinimo" necesaria para I_MaxMin_Array.cpp
 //
 // Calcula el mínimo y el máximo valor de un vector
