@@ -37,7 +37,7 @@ int main(){
 
    // Comprobación de si el vector 1 está vacío
 
-   if (v1.EstaVacio()){
+   if (v1.VectorVacio()){
       cout << "El vector 1 está vacío" << endl;
    }
    else{

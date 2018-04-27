@@ -17,34 +17,28 @@
 
 using namespace std;
 
-// a) Constructor sin argumentos:
-// Crea una lista vacía
-Lista :: Lista(){
-
-   num_nodos = 0;
-   sig = 0;
-   
+Lista :: Lista()
+   :num_nodos(0), primero(0)
+{   
 }
 
-// b) Constructor con un argumento:
-// Crea una lista con el número de nodos indicados en el argumento
-Lista :: Lista(int n){
+Lista :: Lista(int n)
+   :num_nodos(n)
+{
 
    ReservaMemoria(n);
 
 }
 
-// c) Constructor con dos argumentos:
-// Crea una lista con el número de nodos indicados en el primer argumento 
-// e inicia todos ellos al valor indicado en el segundo argumento
-Lista :: Lista(int n, TipoBase val){
+Lista :: Lista(int n, TipoBase val)
+   :num_nodos(n)
+{
 
    ReservaMemoria(n);
    InicializaLista(val);
 
 }
 
-// d) Constructor de copia
 Lista :: Lista(const Lista & l){
 
    ReservaMemoria(l.num_nodos);
@@ -52,36 +46,32 @@ Lista :: Lista(const Lista & l){
 
 }
 
-// e) Destructor
 Lista :: ~Lista(){
 
    LiberaMemoria();
 
 }
 
-// f) Consulta si la lista está vacía
-bool Lista :: EstaVacia(){
+bool Lista :: ListaVacia() const{
 
-   return (num_nodos == 0 || sig == 0);
+   return (num_nodos == 0 || primero == 0);
 
 }
 
-// g) Consulta el número de nodos de la lista
-int Lista :: GetNumNodos(){
+int Lista :: GetNumNodos() const{
 
    return num_nodos;
 
 }
 
-// h) Inserta un valor en la lista
 void Lista :: Insertar(TipoBase val, int pos){
 
    // Comprobar que la lista no está vacía y la posición es correcta
-   if (pos <= num_nodos && !EstaVacia()){
+   if (ListaVacia()){
 
-      PNodo aux = sig;        // Auxiliar para recorrer los nodos
-      PNodo anterior = sig;   // Guarda el nodo anterior
-      int pos_actual = 1;     // Controla el número de nodos a recorrer
+      PNodo aux = primero;       // Auxiliar para recorrer los nodos
+      PNodo anterior = primero;  // Guarda el nodo anterior
+      int pos_actual = 1;        // Controla el número de nodos a recorrer
 
       while (pos_actual < pos){
 
@@ -91,7 +81,7 @@ void Lista :: Insertar(TipoBase val, int pos){
 
       }
 
-      anterior->sig = new Lista; // Se crea el nodo para el nuevo valor
+      anterior->sig = new TipoNodo; // Se crea el nodo para el nuevo valor
       anterior = anterior->sig;
 
       anterior->valor = val;
@@ -102,15 +92,14 @@ void Lista :: Insertar(TipoBase val, int pos){
    }
 }
 
-// i) Borra un nodo en la lista
 void Lista :: Borrar(int pos){
 
    // Comprueba previamente que la lista no esté vacía
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = sig;        // Auxiliar para recorrer los nodos
-      PNodo anterior = sig;   // Guarda el nodo anterior
-      int pos_actual = 1;     // Controla el número de nodos a recorrer
+      PNodo aux = primero;       // Auxiliar para recorrer los nodos
+      PNodo anterior = primero;  // Guarda el nodo anterior
+      int pos_actual = 1;        // Controla el número de nodos a recorrer
 
       while (pos_actual < pos){
 
@@ -128,13 +117,12 @@ void Lista :: Borrar(int pos){
    }
 }
 
-// j) Añade un valor al final de la lista
 void Lista :: AniadirValor(TipoBase val){
 
    // Comprobar que la lista no esté vacía
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = sig;  // Auxiliar para recorrer los nodos
+      PNodo aux = primero;  // Auxiliar para recorrer los nodos
 
       for (int i = 1 ; i < num_nodos ; i++){
 
@@ -142,7 +130,7 @@ void Lista :: AniadirValor(TipoBase val){
 
       }
 
-      aux->sig = new Lista;   // Memoria para el nuevo nodo al final de la lista
+      aux->sig = new TipoNodo;   // Memoria para el nuevo nodo al final de la lista
       aux = aux->sig;
       aux->valor = val;
 
@@ -151,13 +139,12 @@ void Lista :: AniadirValor(TipoBase val){
    }
 }
 
-// k) Leer/Escribir un valor
-TipoBase Lista :: LeerValor(int pos){
+TipoBase Lista :: LeerValor(int pos) const{
 
    // Comprobar que la lista no esté vacía y la posición sea correcta
-   if (!EstaVacia() && pos <= num_nodos){
+   if (!ListaVacia()){
 
-      PNodo aux = sig;     // Auxiliar para recorrer los nodos
+      PNodo aux = primero; // Auxiliar para recorrer los nodos
       int pos_actual = 1;  // Controla el número de nodos a recorrer
 
       while (pos_actual < pos){
@@ -175,9 +162,9 @@ TipoBase Lista :: LeerValor(int pos){
 void Lista :: ModificarValor(int pos, TipoBase val){
 
    // Comprobar que la lista no esté vacía
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = sig;     // Auxiliar para recorrer los nodos
+      PNodo aux = primero; // Auxiliar para recorrer los nodos
       int pos_actual = 1;  // Controla el número de nodos a recorrer
 
       while (pos_actual < pos){
@@ -187,18 +174,17 @@ void Lista :: ModificarValor(int pos, TipoBase val){
 
       }
 
-      aux->valor = val;;
+      aux->valor = val;
 
    }
 }
 
-// l) Inicializa todos los nodos al valor indicado como argumento
 void Lista :: InicializaLista(TipoBase val){
 
    // Comprueba previamente que la lista no esté vacía
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = sig;
+      PNodo aux = primero;
 
       while (aux != 0){
          
@@ -209,70 +195,63 @@ void Lista :: InicializaLista(TipoBase val){
    }
 }
 
-// Reserva memoria para n nodos
 void Lista :: ReservaMemoria(int n){
 
-   num_nodos = 0;
-   
    // Controla que el número de nodos introducidos no sea ninguno
    if (n > 0){
 
       // El primer nodo se trata distinto a los demás
-      sig = new Lista;
-      num_nodos++;
+      primero = new TipoNodo;
 
-      PNodo aux = sig;  // Auxiliar para ir creando nodos en la lista
+      PNodo aux = primero;  // Auxiliar para ir creando nodos en la lista
 
       // Crea los nodos restantes
-      while (num_nodos < n){
+      for (int i = 1 ; i < n ; i++){
 
-         aux->sig = new Lista;   // Memoria para el siguiente nodo
+         aux->sig = new TipoNodo;   // Memoria para el siguiente nodo
          aux = aux->sig;         // Actualizar posición del siguiente nodo          
-
-         num_nodos++;
 
       }
 
-      aux->sig = 0; 
+      aux->sig = 0;  // Finalizar la lista
 
    }
    else{
-      sig = 0; // No se crea ningún nodo
+      primero = 0; // No se crea ningún nodo
    }
 
 }
 
-// Libera la memoria de la lista
 void Lista :: LiberaMemoria(){
 
    // Comprobar primero si la lista está vacía antes de borrar
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = sig; // Nodo auxiliar al principio
+      PNodo aux = primero; // Nodo auxiliar al principio
 
-      while (aux != 0){
+      while (aux->sig != 0){
 
-         aux = aux->sig;
-         delete sig;
-         sig = aux;
+         primero = primero->sig;
+         delete aux;
+         aux = primero;
 
       }
 
-      delete sig; // Finalmente se borra el nodo que queda 
+      delete primero;   // Se borra el nodo que queda 
+      primero = 0;      // Quitar el acceso a la lista
+
    }
-
-   sig = 0;
-
 }
 
-// Copia una lista en otra
 void Lista :: CopiaLista(const Lista & l){
 
    // Comprobar previamente que la lista no esté vacía
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = l.sig;   // Para recorrer los nodos de la lista argumento
-      PNodo nueva = sig;   // Para recorrer los nodos de la nueva lista
+      num_nodos = l.num_nodos;
+   
+      PNodo aux = l.primero;  // Para los nodos de la lista argumento
+      PNodo nueva = primero;  // Para los nodos de la nueva lista
 
       nueva->valor = aux->valor;
 
@@ -287,13 +266,12 @@ void Lista :: CopiaLista(const Lista & l){
    }
 }
 
-// Saca por pantalla la lista completa
 void Lista :: PintaLista(){
 
    // Comprueba previamente que la lista no esté vacía
-   if (!EstaVacia()){
+   if (!ListaVacia()){
 
-      PNodo aux = sig;
+      PNodo aux = primero;
 
       while (aux != 0){
 

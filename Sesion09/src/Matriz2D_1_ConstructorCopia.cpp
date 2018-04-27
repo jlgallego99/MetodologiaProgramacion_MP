@@ -15,105 +15,86 @@
 #include <cstring>
 #include <iostream>
 #include "Matriz2D_1_ConstructorCopia.h"
-
 using namespace std;
 
-// a) Constructor sin argumentos: 
-// Crea una matriz vacía
-Matriz2D_1 :: Matriz2D_1(){
+Matriz2D_1 :: Matriz2D_1()
+	:filas(0), 
+	columnas(0), 
+	matriz(0)
+{
+}
 
-	filas = 0;
-	columnas = 0;
+Matriz2D_1 :: Matriz2D_1(int dimension)
+	:filas(dimension),
+	columnas(dimension)
+{
+
+	ReservaMemoria(dimension, dimension);
 
 }
 
-// b) Constructor con un argumento: 
-// Crea una matriz cuadrada con el número de filas y columnas del argumento
-Matriz2D_1 :: Matriz2D_1(int filscols){
+Matriz2D_1 :: Matriz2D_1(int num_fils, int num_cols)
+	:filas(num_fils),
+	columnas(num_cols)
+{
 
-	filas = filscols;
-	columnas = filscols;
-
-	ReservaMemoria();
+	ReservaMemoria(num_fils, num_cols);
 
 }
 
-// c) Constructor con dos argumentos:
-// Crea una matriz con el número de filas indicado en el primer argumento 
-// y el número de columnas indicado en el segundo
-Matriz2D_1 :: Matriz2D_1(int fils, int cols){
+Matriz2D_1 :: Matriz2D_1(int num_fils, int num_cols, TipoBase valor)
+	:filas(num_fils),
+	columnas(num_cols)
+{
 
-	filas = fils;
-	columnas = cols;
-
-	ReservaMemoria();
-
-}
-
-// d) Constructor con tres argumentos:
-// Crea una matriz con el número de filas indicado en el primer argumento,
-// el número de columnas indicado en el segundo e iniciando todas las casillas
-// al valor especificado en el tercero
-Matriz2D_1 :: Matriz2D_1(int fils, int cols, TipoBase valor){
-
-	filas = fils;
-	columnas = cols;
-
-	ReservaMemoria();
-
+	ReservaMemoria(num_fils, num_cols);
 	InicializaMatriz(valor);
 
 }
 
-// e) Constructor de copia
-Matriz2D_1 :: Matriz2D_1(const Matriz2D_1 & m){
-	
-	filas = m.filas;
-	columnas = m.columnas;
+Matriz2D_1 :: Matriz2D_1(const Matriz2D_1 & m){	
 
-	ReservaMemoria();
-
+	ReservaMemoria(m.filas, m.columnas);
 	CopiaMatriz(m);
 
 }
 
-// f) Destructor
 Matriz2D_1 :: ~Matriz2D_1(){
 
 	LiberaMemoria();
 
 }
 
-// g) Consulta si la matriz está vací­a
-bool Matriz2D_1 :: EstaVacia(){
+int Matriz2D_1 :: GetFilas() const{
+
+   return filas;
+
+}
+
+int Matriz2D_1 :: GetColumnas() const{
+
+   return columnas;
+
+}
+
+bool Matriz2D_1 :: MatrizVacia() const{
 
 	return (filas == 0 || columnas == 0);
 
 }
 
-// h) Escribir/Leer un valor
-void Matriz2D_1 :: ModificarValor(int fila, int col, TipoBase valor){
+void Matriz2D_1 :: ModificarValor(int fila, int col, TipoBase valor) const{
 
-	// Comprueba que la fila y columna son correctas
-	if (fila < filas && col < columnas){
+	matriz[fila][col] = valor;
 
-		matriz[fila][col] = valor;
-
-	}
 }
 
 TipoBase Matriz2D_1 :: LeerValor(int fila, int col) const{
 	
-	// Comprueba que la fila y columna son correctas
-	if (fila < filas && col < columnas){
+	return matriz[fila][col];
 
-		return matriz[fila][col];
-
-	}
 }
 
-// i) Inicializa todas las casillas de la matriz al valor del argumento
-// Si no se especifica ninguno, inicia todas las casillas al valor nulo
 void Matriz2D_1 :: InicializaMatriz(TipoBase valor){
 
 	RellenaMatriz(valor);
@@ -126,30 +107,36 @@ void Matriz2D_1 :: InicializaMatriz(){
 
 }
 
-// Reserva memoria para una matriz
-void Matriz2D_1 :: ReservaMemoria(){
-	
-	// Se comprueba si los datos son correctos 
-	// (no tiene sentido filas y columnas negativas)
-	if (filas > 0 && columnas > 0){
-		// Se crea el vector de punteros
-		matriz = new TipoBase * [columnas];
+void Matriz2D_1 :: MuestraMatriz() const{
 
-		// Se crean todas las filas
-		for (int i = 0 ; i < filas ; i++){
+	for (int i = 0 ; i < filas ; i++){
 
-			matriz[i] = new TipoBase [columnas];
+		for (int j = 0 ; j < columnas ; j++){
+
+			cout << matriz[i][j];
 
 		}
-	
+		cout << endl;
 	}
 }
 
-// Libera la memoria de una matriz
+void Matriz2D_1 :: ReservaMemoria(const int num_fils, const int num_cols){
+	
+	// Primero se crea el vector de punteros
+	matriz = new TipoBase * [num_cols];
+
+	// Se crean todas las filas
+	for (int i = 0 ; i < num_fils ; i++){
+
+		matriz[i] = new TipoBase [num_cols];
+
+	}
+}
+
 void Matriz2D_1 :: LiberaMemoria(){
 	
 	// Comprobar previamente si la matriz está vací­a
-	if (!EstaVacia()){
+	if (!MatrizVacia()){
 		
 		// Liberar la memoria ocupada por cada fila
 		for (int i = 0 ; i < filas ; i++){
@@ -162,14 +149,12 @@ void Matriz2D_1 :: LiberaMemoria(){
 		delete [] matriz;
 
 	}
-
 }
 
-// Rellena una matriz por completo a un valor
 void Matriz2D_1 :: RellenaMatriz(TipoBase valor){
 
 	for (int i = 0 ; i < filas ; i++){
-
+	
 		for (int j = 0 ; j < columnas ; j++){
 
 			ModificarValor(i, j, valor);
@@ -178,26 +163,14 @@ void Matriz2D_1 :: RellenaMatriz(TipoBase valor){
 	}
 }
 
-// Copia una matriz en otra
 void Matriz2D_1 :: CopiaMatriz(const Matriz2D_1 & m){
+
+   filas = m.filas;
+   columnas = m.columnas;
 
 	for (int i = 0 ; i < filas ; i++){
 
 		memcpy(matriz[i], m.matriz[i], columnas*sizeof(TipoBase));		
 
-	}
-}
-
-// Muestra por completo una matriz
-void Matriz2D_1 :: MuestraMatriz(){
-
-	for (int i = 0 ; i < filas ; i++){
-
-		for (int j = 0 ; j < columnas ; j++){
-
-			cout << matriz[i][j];
-
-		}
-		cout << endl;
 	}
 }

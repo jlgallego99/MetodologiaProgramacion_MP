@@ -20,9 +20,15 @@ using namespace std;
 int main(){
    TipoBase valor;
    int fil, col;
-
-   cout << "Introduzca el número de filas y columnas para la matriz: ";
-   cin >> fil >> col;
+   
+   // PRECONDICIÓN: Filas y columnas positivas
+   do{
+   
+      cout << "Introduzca el número de filas y columnas para la matriz: ";
+      cin >> fil >> col;
+   
+   }while (fil <= 0 || col <= 0);
+     
    cout << "Valor para inicializar la matriz: ";
    cin >> valor;
 
@@ -34,20 +40,27 @@ int main(){
    // Comprueba si las matrices están vacías
 
    cout << "Matriz vacía: 1, Matriz no vacía: 0" << endl;
-   cout << "M1: " << m1.EstaVacia() << endl;
-   cout << "M2: " << m2.EstaVacia() << endl;
-   cout << "M3: " << m3.EstaVacia() << endl;
-   cout << "M4: " << m4.EstaVacia() << endl;
+   cout << "M1: " << m1.MatrizVacia() << endl;
+   cout << "M2: " << m2.MatrizVacia() << endl;
+   cout << "M3: " << m3.MatrizVacia() << endl;
+   cout << "M4: " << m4.MatrizVacia() << endl;
    
    // Muestra la matriz 4, pide que modifique un valor, y se vuelve a mostrar
 
    cout << "Matriz 4: " << endl;
    m4.MuestraMatriz();
-
-   cout << "¿Qué valor desea modificar? "
-        << "Introduzca el valor, y la fila y columna donde desea colocarlo: ";
-   cin >> valor >> fil >> col;
-
+   
+   cout << "Introduzca el nuevo valor de la matriz: ";
+   cin >> valor;
+   
+   // PRECONDICIÓN: Filas y columnas correctas
+   do{   
+   
+      cout << "Introduzca la fila y la columna donde desea colocarlo: ";
+      cin >> fil >> col;
+      
+   }while(fil <= 0 || fil > m4.GetFilas() || col <= 0 || col > m4.GetColumnas());
+   
    m4.ModificarValor(fil, col, valor);
 
    cout << "Se ha modificado la fila " << fil << ", columna " << col

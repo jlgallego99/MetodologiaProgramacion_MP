@@ -15,8 +15,6 @@
 #include <cstring>
 #include "VectorDinamico_ConstructorCopia.h"
 
-// a) Constructor sin argumentos:
-// Crea un vector dinámico con un número de casillas predeterminado 
 VectorDinamico :: VectorDinamico()
    : ocupadas(0), reservadas(TAM_INICIAL)
 {
@@ -25,8 +23,6 @@ VectorDinamico :: VectorDinamico()
 
 }
 
-// b) Constructor con un argumento:
-// Crea un vector dinámico con un número de casillas indicado en el argumento
 VectorDinamico :: VectorDinamico(int num_casillas)
    : ocupadas(0), reservadas(num_casillas)
 {
@@ -35,7 +31,6 @@ VectorDinamico :: VectorDinamico(int num_casillas)
 
 }
 
-// c) Constructor de copia
 VectorDinamico :: VectorDinamico(const VectorDinamico & v)
    : ocupadas(v.ocupadas), reservadas(v.reservadas)
 {
@@ -45,35 +40,31 @@ VectorDinamico :: VectorDinamico(const VectorDinamico & v)
 
 }
 
-// d) Destructor
 VectorDinamico :: ~VectorDinamico(){
 
    LiberaMemoria();
 
 }
 
-// e) Consulta si el vector está vacío
-bool VectorDinamico :: EstaVacio(){
+bool VectorDinamico :: VectorVacio() const{
 
    return (ocupadas == 0);
 
 }
 
-// f) Consulta el número de casillas ocupadas/reservadas
-int VectorDinamico :: GetCasillasOcupadas(){
+int VectorDinamico :: GetCasillasOcupadas() const{
 
    return ocupadas;
 
 }
 
-int VectorDinamico :: GetCasillasReservadas(){
+int VectorDinamico :: GetCasillasReservadas() const{
 
    return reservadas;
 
 }
 
-// g) Devuelve el valor que ocupa una posición dada
-TipoBase VectorDinamico :: GetValor(int pos){
+TipoBase VectorDinamico :: GetValor(int pos) const{
 	
 	// Controla que la posición introducida es correcta
 	if (pos < ocupadas){
@@ -84,7 +75,6 @@ TipoBase VectorDinamico :: GetValor(int pos){
 
 }
 
-// h) Añade un valor. Si no hay espacio, redimensiona el vector
 void VectorDinamico :: SetValor(TipoBase valor){
 
 	if (reservadas == ocupadas){
@@ -98,8 +88,6 @@ void VectorDinamico :: SetValor(TipoBase valor){
 
 }
 
-// i) Ajusta el tamaño del vector 
-// De esta forma su capacidad coincidirá con el número de casillas ocupadas
 void VectorDinamico :: AjustaTamanio(){
 
    tipo_redimension = Ajustar;
@@ -108,14 +96,13 @@ void VectorDinamico :: AjustaTamanio(){
 
 }
 
-// j) Establece/consulta el tipo de redimensionamiento
 void VectorDinamico :: SetTipoRedimension(TipoRedimension tipo){
 
    tipo_redimension = tipo;
 
 }
 
-TipoRedimension VectorDinamico :: GetTipoRedimension(){
+TipoRedimension VectorDinamico :: GetTipoRedimension() const{
 
    return tipo_redimension;
 
@@ -131,11 +118,11 @@ void VectorDinamico :: ReservaMemoria(int tamanio){
 
 void VectorDinamico :: LiberaMemoria(){
 
-   delete [] vector;
-
-   reservadas = 0;
-   ocupadas = 0;
-
+   // Comprueba previamente que el vector no esté vacío
+   if (!VectorVacio()){
+      delete [] vector;
+      vector = 0;
+   }
 }
 
 void VectorDinamico :: CopiaVector(const VectorDinamico & v){

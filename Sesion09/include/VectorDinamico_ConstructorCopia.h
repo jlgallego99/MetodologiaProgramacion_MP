@@ -15,9 +15,13 @@
 #ifndef VECTORDINAMICO
 #define VECTORDINAMICO
 
+// Definición del tipo de datos
+
 typedef int TipoBase;
 
 enum TipoRedimension {DeUnoEnUno, EnBloques, Duplicando, Ajustar};
+
+// Declaración de la clase VectorDinamico
 
 class VectorDinamico{
    private:
@@ -29,24 +33,61 @@ class VectorDinamico{
       TipoRedimension tipo_redimension;
 
    public:
+
+      // Constructor sin argumentos:
+      // Crea un vector dinámico con un número de casillas predeterminado 
       VectorDinamico();
+
+      // Constructor con un argumento:
+      // Crea un vector dinámico con el número de casillas del argumento
+      // PRECONDICIÓN: Número de casillas positivo
       VectorDinamico(int);
+
+      // Constructor de copia
       VectorDinamico(const VectorDinamico &);
+
+      // Destructor
       ~VectorDinamico();
-      bool EstaVacio();
-      int GetCasillasOcupadas();
-      int GetCasillasReservadas();
-      TipoBase GetValor(int);
+
+      // Consulta si el vector está vacío
+      bool VectorVacio() const;
+
+      // Consulta el número de casillas ocupadas
+      int GetCasillasOcupadas() const;
+
+      // Consulta el número de casillas reservadas
+      int GetCasillasReservadas() const;
+
+      // Devuelve el valor que ocupa una posición dada
+      // PRECONDICIÓN: Posición positiva y correcta
+      TipoBase GetValor(int) const;
+
+      // Añade un valor. Si no hay espacio, redimensiona el vector
       void SetValor(TipoBase);
+
+      // Asigna un tipo de redimensión
       void SetTipoRedimension(TipoRedimension);
-      TipoRedimension GetTipoRedimension();
+
+      // Consulta el tipo de redimensión
+      TipoRedimension GetTipoRedimension() const;
 
    private:
-      TipoBase CasillasReservadas();
+
+      // Redimensiona un vector
       void Redimensiona();
+
+      // Ajusta el tamaño del vector 
+      // Su capacidad coincidirá con el número de casillas ocupadas
       void AjustaTamanio();
+
+      // Reserva memoria para un vector
+      // PRECONDICIÓN: Número de casillas positivo
       void ReservaMemoria(int);
+
+      // Libera la memoria de un vector
       void LiberaMemoria();
+
+      // Copia un vector en otro
       void CopiaVector(const VectorDinamico &);
 
 };
